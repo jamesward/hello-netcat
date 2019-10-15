@@ -5,4 +5,4 @@
 Run Locally:
 
 - `docker build -t hello-netcat .`
-- `docker run -p8080:8080 -ePORT=8080 -it hello-netcat`
+- `docker run -p 8080:8080 -e PORT=8080 -it hello-netcat`
