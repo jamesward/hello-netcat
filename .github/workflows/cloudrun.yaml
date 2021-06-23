@@ -18,8 +18,8 @@ jobs:
       - name: Create & Publish Container
         run: |
           gcloud auth configure-docker
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT }}/${{ github.repository }}:${{ github.sha }} .
-          docker push gcr.io/${{ secrets.GCP_PROJECT }}/${{ github.repository }}:${{ github.sha }}
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT }}/${{ github.event.repository.name }}:${{ github.sha }} .
+          docker push gcr.io/${{ secrets.GCP_PROJECT }}/${{ github.event.repository.name }}:${{ github.sha }}
 
       - name: Deploy
         uses: docker://ghcr.io/jamesward/easycloudrun
@@ -28,6 +28,6 @@ jobs:
         env:
           PROJECT_ID: ${{ secrets.GCP_PROJECT }}
           COMMIT_SHA: ${{ github.sha }}
-          IMAGE_NAME: ${{ github.repository }}
+          IMAGE_NAME: ${{ github.event.repository.name }}
           IMAGE_VERSION: ${{ github.sha }}
           REGION: ${{ secrets.GCP_REGION }}
