@@ -22,7 +22,7 @@ jobs:
           docker push gcr.io/${{ secrets.GCP_PROJECT }}/${{ github.repository }}:${{ github.sha }}
 
       - name: Deploy
-        uses: ghcr.io/jamesward/easycloudrun
+        container: ghcr.io/jamesward/easycloudrun
         with:
           entrypoint: deploy
         env:
