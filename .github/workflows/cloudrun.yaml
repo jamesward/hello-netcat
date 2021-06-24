@@ -14,10 +14,10 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT }}
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
           export_default_credentials: true
-        run: gcloud auth configure-docker
 
       - name: Create & Publish Container
         run: |
+          gcloud auth configure-docker
           docker build -t gcr.io/${{ secrets.GCP_PROJECT }}/${{ github.event.repository.name }}:${{ github.sha }} .
           docker push gcr.io/${{ secrets.GCP_PROJECT }}/${{ github.event.repository.name }}:${{ github.sha }}
 
