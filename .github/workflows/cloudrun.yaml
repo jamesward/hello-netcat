@@ -22,7 +22,7 @@ jobs:
           docker push gcr.io/${{ secrets.GCP_PROJECT }}/${{ github.event.repository.name }}:${{ github.sha }}
 
       - name: Deploy
-        uses: jamesward/easycloudrun/deploy
+        uses: jamesward/easycloudrun/deploy@master
         env:
           PROJECT_ID: ${{ secrets.GCP_PROJECT }}
           COMMIT_SHA: ${{ github.sha }}
