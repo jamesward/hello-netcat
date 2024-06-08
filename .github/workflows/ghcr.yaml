@@ -6,7 +6,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-#      attestations: write
+      attestations: write
 #      id-token: write
 
     steps:
@@ -26,15 +26,16 @@ jobs:
 
       - uses: docker/setup-buildx-action@v3
 
-      - uses: docker/build-push-action@v5
+      - id: push
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: ${{ github.actor == github.repository_owner }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-#      - uses: actions/attest-build-provenance@v1
-#        with:
-#          subject-name: ghcr.io/${{ github.repository }}
-#          subject-digest: ${{ steps.push.outputs.digest }}
-#          push-to-registry: true
+      - uses: actions/attest-build-provenance@v1
+        with:
+          subject-name: ghcr.io/${{ github.repository }}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
